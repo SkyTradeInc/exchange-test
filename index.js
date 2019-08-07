@@ -34,7 +34,7 @@ class Cortrex {
       console.log(chalk.green(`[${Date.now()}] ${order.side} order ${order.quantity} at $${order.price}`))
     })
     .catch(error => {
-      console.log(chalk.red(`[${Date.now()}] ${error.response.data.msg}`))
+      console.log(error.response.data.msg)
     })
   }
 
@@ -58,14 +58,14 @@ const cortrex = new Cortrex
 let flip = true
 spamOrders = () => {
   if(flip) {
-    cortrex.submitOrder(BTCUSDT, SELL, LIMIT, GTC, 0.001, 1100, (Date.now()))
+    cortrex.submitOrder(BTCUSDT, SELL, LIMIT, GTC, 0.1, 1100, (Date.now()))
   } else {
-    cortrex.submitOrder(BTCUSDT, BUY, LIMIT, GTC, 0.001, 13000, (Date.now()))
+    cortrex.submitOrder(BTCUSDT, BUY, LIMIT, GTC, 0.1, 13000, (Date.now()))
   }
   setTimeout(()=>{
     flip = !flip
     spamOrders()
-  },50)
+  },200)
 
 }
 spamOrders()
