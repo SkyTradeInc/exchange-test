@@ -30,11 +30,12 @@ class Cortrex {
       }
     })
     .then(response => {
-      const order = response.data.order
-      console.log(chalk.green(`[${Date.now()}] ${order.side} order ${order.quantity} at $${order.price}`))
+      const order = response.data
+      console.log(chalk.green(`[${Date.now()}]`))
+      console.log(order)
     })
     .catch(error => {
-      console.log(error.response.data.msg)
+      console.log(error)
     })
   }
 
@@ -50,11 +51,23 @@ class Cortrex {
     })
   }
 
-
+  getAccountData() {
+    const params = `timestamp=${Date.now()}`
+    const signature = this.constructSignature(params)
+    const url = `${baseURL}/api/v1/account?${params}&signature=${signature}`
+    axios.get(url, {
+      headers: {
+        'X-MBX-APIKEY': apiKey
+      }
+    })
+    .then(console.log)
+  }
 }
 
-const cortrex = new Cortrex
 
+
+const cortrex = new Cortrex
+// cortrex.getAccountData()
 let flip = true
 spamOrders = () => {
   if(flip) {
@@ -69,3 +82,5 @@ spamOrders = () => {
 
 }
 spamOrders()
+// cortrex.submitOrder(BTCUSDT, BUY, LIMIT, GTC, 0.1, 13000, (Date.now()))
+// cortrex.submitOrder(BTCUSDT, SELL, LIMIT, GTC, 0.1, 1100, (Date.now()))
