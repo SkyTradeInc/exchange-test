@@ -65,9 +65,9 @@ class Cortrex {
 }
 
 
-
+//
 const cortrex = new Cortrex
-// cortrex.getAccountData()
+// // cortrex.getAccountData()
 let flip = true
 spamOrders = () => {
   if(flip) {
@@ -78,7 +78,7 @@ spamOrders = () => {
   setTimeout(()=>{
     flip = !flip
     spamOrders()
-  },200)
+  },10)
 
 }
 spamOrders()
